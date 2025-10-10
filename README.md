@@ -25,7 +25,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 
-Configura tu base de datos MySQL o PostgreSQL en el archivo .env.
+Configura tu base de datos MySQL en el archivo .env.
 
 ### 4. Ejecutar migraciones
 php artisan migrate
