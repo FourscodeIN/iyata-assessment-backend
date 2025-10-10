@@ -2,19 +2,19 @@
 
 ```markdown
 
-## IYATA Evaluación - Backend (Laravel API)
+# IYATA Evaluación - Backend (Laravel API)
 
-API RESTful desarrollada con **Laravel** que gestiona la autenticación de usuarios mediante tokens así como también 
-la gestión completa con CRUD de los usuarios Forma parte del ecosistema de evaluación **IYATA Assessment**, en conjunto 
-con el frontend en Vue.js.
+API RESTful desarrollada con **Laravel 11** que gestiona la **autenticación de usuarios mediante tokens Sanctum**  
+y permite la **gestión completa de usuarios (CRUD)**.  
+Forma parte del ecosistema de evaluación **IYATA Assessment**, junto con el frontend en Vue.js.
 
 ---
 
-##  Instalación
+## Instalación
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/<FourscodeIN>/iyata-assessment-backend.git
+git clone https://github.com/FourscodeIN/iyata-assessment-backend.git
 cd iyata-assessment-backend
 
 ### 2. Instalar dependencias
@@ -35,31 +35,81 @@ php artisan serve
 
 La API estará disponible en http://127.0.0.1:8000.
 
-Autenticación
+# Autenticación
 
-El sistema utiliza Laravel Sanctum para el manejo de tokens de autenticación con validación constante del backend y frontend.
+El sistema utiliza Laravel Sanctum para el manejo de tokens Bearer, garantizando la validación 
+constante entre backend y frontend.
 
-Flujo básico:
+## Flujo de autenticación:
 
-POST /api/login → Retorna un token si las credenciales son correctas.
+POST /api/register → Registra un nuevo usuario.
 
-GET /api/usuarios → Devuelve la lista de usuarios autenticados (requiere token Bearer).
+POST /api/login → Valida credenciales y genera token.
 
- Stack Tecnológico
+GET /api/validar-token → Verifica si el token sigue siendo válido.
 
-Backend: Laravel 11 (PHP 8+)
+POST /api/logout → Cierra sesión y elimina el token.
+
+# Stack Tecnológico
+
+Framework: Laravel 11 (PHP 8.2+)
 
 Base de datos: MySQL
 
-Autenticación: Laravel Sanctum
-
 ORM: Eloquent
 
-Control de versiones: Git/GitHub
+Autenticación: Laravel Sanctum
 
-Endpoints principales
+Control de versiones: Git / GitHub
 
-Método		     Endpoint				    Descripción				        Autenticación
+Arquitectura: API RESTful modular con controladores y middleware
 
-POST		    /api/login		        Iniciar sesión y obtener token		    ❌
-GET			    /api/usuarios		    Listar usuarios registrados			    ✅
+# Ejemplo de flujo API (con Axios o Postman)
+
+Login
+
+POST /api/login
+{
+  "email": "brayan@example.com",
+  "password": "123456"
+}
+
+Respuesta: 
+
+{
+  "usuario": {
+    "id": 1,
+    "nombre": "Brayan Mesa",
+    "email": "brayan@example.com"
+  },
+  "token": "2|1qN5...",
+  "token_type": "Bearer"
+}
+
+Listar usuarios
+
+GET /api/usuarios
+Header: Authorization: Bearer <token>
+
+# Estructura del proyecto
+
+app/
+ ├── Http/
+ │    ├── Controllers/
+ │    │     ├── AuthController.php
+ │    │     └── UsuarioController.php
+ │    └── Middleware/
+ ├── Models/
+ │    └── Usuario.php
+database/
+ ├── migrations/
+ └── seeders/
+routes/
+ └── api.php
+ 
+# Notas Técnicas
+
+Todos los tokens son renovables y revocables desde el backend.
+Las contraseñas se cifran usando Hash::make().
+Los tokens antiguos se eliminan automáticamente al iniciar una nueva sesión ($usuario->tokens()->delete()).
+Se puede integrar con frontend Vue.js mediante Axios sin withCredentials.
