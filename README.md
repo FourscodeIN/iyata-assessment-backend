@@ -1,7 +1,5 @@
 # `iyata-assessment-backend/README.md`
 
-```markdown
-
 # IYATA Evaluación - Backend (Laravel API)
 
 API RESTful desarrollada con **Laravel 11** que gestiona la **autenticación de usuarios mediante tokens Sanctum**  
@@ -12,26 +10,26 @@ Forma parte del ecosistema de evaluación **IYATA Assessment**, junto con el fro
 
 ## Instalación
 
-### 1. Clonar el repositorio
 ```bash
+# Clonar el repositorio
 git clone https://github.com/FourscodeIN/iyata-assessment-backend.git
 cd iyata-assessment-backend
 
-### 2. Instalar dependencias
+# Instalar dependencias
 composer install
 
-### 3. Configurar entorno
-
+# Configurar entorno
 cp .env.example .env
 php artisan key:generate
 
-Configura tu base de datos MySQL en el archivo .env.
+# Configura la base de datos MySQL en el archivo .env.
 
-### 4. Ejecutar migraciones
+# Ejecutar migraciones
 php artisan migrate
 
-### 5. Iniciar el servidor
+# Iniciar el servidor
 php artisan serve
+```
 
 La API estará disponible en http://127.0.0.1:8000.
 
@@ -67,15 +65,15 @@ Arquitectura: API RESTful modular con controladores y middleware
 # Ejemplo de flujo API (con Axios o Postman)
 
 Login
-
+```
 POST /api/login
 {
   "email": "brayan@example.com",
   "password": "123456"
 }
-
+```
 Respuesta: 
-
+```
 {
   "usuario": {
     "id": 1,
@@ -85,7 +83,7 @@ Respuesta:
   "token": "2|1qN5...",
   "token_type": "Bearer"
 }
-
+```
 Listar usuarios
 
 GET /api/usuarios
