@@ -89,8 +89,8 @@ Listar usuarios
 GET /api/usuarios
 Header: Authorization: Bearer <token>
 
-# Estructura del proyecto
-
+## Estructura del proyecto
+```markdown
 app/
  ├── Http/
  │    ├── Controllers/
@@ -104,8 +104,8 @@ database/
  └── seeders/
 routes/
  └── api.php
- 
-# Notas Técnicas
+```
+## Notas Técnicas
 
 Todos los tokens son renovables y revocables desde el backend.
 Las contraseñas se cifran usando Hash::make().
