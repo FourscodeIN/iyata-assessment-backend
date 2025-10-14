@@ -8,7 +8,7 @@ Forma parte del ecosistema de evaluación **IYATA Assessment**, junto con el fro
 
 ---
 
-## Instalación
+# Instalación
 
 ```bash
 # Clonar el repositorio
@@ -48,7 +48,7 @@ GET /api/validar-token → Verifica si el token sigue siendo válido.
 
 POST /api/logout → Cierra sesión y elimina el token.
 
-# Stack Tecnológico
+## Stack Tecnológico
 
 Framework: Laravel 11 (PHP 8.2+)
 
@@ -62,7 +62,7 @@ Control de versiones: Git / GitHub
 
 Arquitectura: API RESTful modular con controladores y middleware
 
-# Ejemplo de flujo API (con Axios o Postman)
+## Ejemplo de flujo API (con Axios o Postman)
 
 Login
 ```
