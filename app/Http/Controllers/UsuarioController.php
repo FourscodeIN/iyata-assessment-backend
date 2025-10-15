@@ -12,8 +12,14 @@ class UsuarioController extends Controller
     //Lista de usuario objeto
     public function index()
     {
-        $usuarios = DB::table('usuarios')->get();
+        $usuarios = Usuario::all(); 
         return response()->json($usuarios);
+    }
+
+    public function show($id)
+    {
+        $usuario = Usuario::with('tareas')->findOrFail($id);
+        return response()->json($usuario);
     }
 
     // Crear usuario

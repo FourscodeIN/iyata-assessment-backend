@@ -14,4 +14,10 @@ class Usuario extends Authenticatable
     protected $table = 'usuarios';
     protected $fillable = ['nombre', 'email', 'telefono', 'password']; 
     protected $hidden = ['password']; 
+
+    // Seguda relación: Un usuario tiene muchas tareas
+    public function tareas()
+    {
+        return $this->hasMany(Tarea::class, 'usuario_id');
+    }
 }
