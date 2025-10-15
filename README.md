@@ -28,7 +28,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=sistema_usuarios
 DB_USERNAME=iyata_user
-DB_PASSWORD=TuContraseñaSegura123
+DB_PASSWORD=iyataPruebaTecnica
 
 # Ejecutar migraciones
 php artisan migrate
