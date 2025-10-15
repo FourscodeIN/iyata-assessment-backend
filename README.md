@@ -22,10 +22,19 @@ composer install
 cp .env.example .env
 php artisan key:generate
 
-# Configura la base de datos MySQL en el archivo .env.
+# Configura la base de datos MySQL en el archivo .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sistema_usuarios
+DB_USERNAME=root
+DB_PASSWORD=
 
 # Ejecutar migraciones
 php artisan migrate
+
+# Si deseas cargar datos iniciales (usuarios, roles, etc.).
+php artisan db:seed
 
 # Iniciar el servidor
 php artisan serve
