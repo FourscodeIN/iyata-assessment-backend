@@ -27,8 +27,8 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=sistema_usuarios
-DB_USERNAME=root
-DB_PASSWORD=
+DB_USERNAME=iyata_user
+DB_PASSWORD=TuContraseñaSegura123
 
 # Ejecutar migraciones
 php artisan migrate
@@ -57,6 +57,22 @@ GET /api/validar-token → Verifica si el token sigue siendo válido.
 
 POST /api/logout → Cierra sesión y elimina el token.
 
+# Gestión de Usuarios y Tareas
+
+El backend incluye controladores para manejar tanto usuarios como tareas asociadas a cada usuario.
+
+## Endpoints principales
+```markdown
+Método	        Endpoint	            Descripción	                        Autenticación
+GET	            /api/usuarios	        Listar usuarios con sus tareas	        ✅
+POST	        /api/usuarios	        Crear nuevo usuario	                    ✅
+PUT	            /api/usuarios/{id}	    Editar usuario existente	            ✅
+DELETE	        /api/usuarios/{id}	    Eliminar usuario	                    ✅
+GET	            /api/tareas            	Listar tareas con su usuario asociado	✅
+POST	        /api/tareas            	Crear nueva tarea	                    ✅
+PUT	            /api/tareas/{id}	    Editar tarea	                        ✅
+DELETE	        /api/tareas/{id}	    Eliminar tarea	                        ✅
+```
 ## Stack Tecnológico
 
 Framework: Laravel 11 (PHP 8.2+)
@@ -73,7 +89,7 @@ Arquitectura: API RESTful modular con controladores y middleware
 
 ## Ejemplo de flujo API (con Axios o Postman)
 
-Login
+### Login
 ```
 POST /api/login
 {
@@ -81,7 +97,7 @@ POST /api/login
   "password": "123456"
 }
 ```
-Respuesta: 
+### Respuesta: 
 ```
 {
   "usuario": {
@@ -93,26 +109,48 @@ Respuesta:
   "token_type": "Bearer"
 }
 ```
-Listar usuarios
-
+### Listar usuarios
+```
 GET /api/usuarios
 Header: Authorization: Bearer <token>
+```
+### Listar tareas
+```
+GET /api/tareas
+Authorization: Bearer <token>
+```
+### Respuesta:
+```
+[
+  {
+    "id": 1,
+    "titulo": "Revisar reporte",
+    "descripcion": "Verificar datos antes del envío",
+    "usuario": {
+      "id": 2,
+      "nombre": "Laura Gómez"
+    }
+  }
+]
+```
 
 ## Estructura del proyecto
 ```markdown
 app/
  ├── Http/
  │    ├── Controllers/
- │    │     ├── AuthController.php
- │    │     └── UsuarioController.php
+ │    │     ├── AuthController.php      # Login, logout, registro, validación de token
+ │    │     ├── UsuarioController.php   # CRUD de usuarios
+ │    │     └── TareaController.php     # CRUD de tareas (asociadas a usuarios)
  │    └── Middleware/
  ├── Models/
- │    └── Usuario.php
+ │    ├── Usuario.php                   # Relación hasMany con Tarea
+ │    └── Tarea.php                     # Relación belongsTo con Usuario
 database/
- ├── migrations/
+ ├── migrations/                        # Tablas usuarios y tareas
  └── seeders/
 routes/
- └── api.php
+ └── api.php                            # Rutas principales de la API
 ```
 ## Notas Técnicas
 
@@ -120,3 +158,6 @@ Todos los tokens son renovables y revocables desde el backend.
 Las contraseñas se cifran usando Hash::make().
 Los tokens antiguos se eliminan automáticamente al iniciar una nueva sesión ($usuario->tokens()->delete()).
 Se puede integrar con frontend Vue.js mediante Axios sin withCredentials.
+Relaciones Eloquent optimizadas (with('tareas')).
+Controladores separados y limpios.
+Validaciones de entrada en controladores antes de crear/editar registros.
