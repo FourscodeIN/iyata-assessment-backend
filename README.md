@@ -154,10 +154,10 @@ routes/
 ```
 ## Notas Técnicas
 
-Todos los tokens son renovables y revocables desde el backend.
-Las contraseñas se cifran usando Hash::make().
-Los tokens antiguos se eliminan automáticamente al iniciar una nueva sesión ($usuario->tokens()->delete()).
-Se puede integrar con frontend Vue.js mediante Axios sin withCredentials.
-Relaciones Eloquent optimizadas (with('tareas')).
-Controladores separados y limpios.
-Validaciones de entrada en controladores antes de crear/editar registros.
+> Todos los tokens son renovables y revocables desde el backend.
+> Las contraseñas se cifran usando Hash::make().
+> Los tokens antiguos se eliminan automáticamente al iniciar una nueva sesión ($usuario->tokens()->delete()).
+> Se puede integrar con frontend Vue.js mediante Axios sin withCredentials.
+> Relaciones Eloquent optimizadas (with('tareas')).
+> Controladores separados y limpios.
+> Validaciones de entrada en controladores antes de crear/editar registros.
